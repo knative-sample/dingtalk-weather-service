@@ -1,0 +1,10 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: dingtalk-weather-service-receive
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+      - image: registry.cn-hangzhou.aliyuncs.com/knative-sample/dingtalk-weather-service:1.0
