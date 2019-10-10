@@ -80,8 +80,12 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 		}
 	}
 	json.Unmarshal(data, payload)
-	if payload.Adcode == adcode && payload.Date == date && strings.Contains(payload.Dayweather, dayweather){
-		dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext("City: " + payload.City + " >> Weather: " + string(data)))
+	//城市、日期
+	if payload.Adcode == adcode && payload.Date == date {
+		//天气提醒
+		if strings.Contains(payload.Dayweather, dayweather) {
+			dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext("城市: "+payload.City+" >> 日期：" + payload.Date + " >> 有: "+ payload.Dayweather + ", 出门请注意带伞"))
+		}
 	}
 }
 
@@ -94,6 +98,7 @@ var (
 	date string
 	dayweather string
 )
+
 func init() {
 	flag.StringVar(&url, "dingtalkurl", "", "dingtalk url.")
 	flag.StringVar(&url, "adcode", "", "adcode.")
@@ -103,7 +108,9 @@ func init() {
 func main() {
 	flag.Parse()
 
-
+	log.Println(adcode)
+	log.Println(date)
+	log.Println(dayweather)
 	go func() {
 		http.HandleFunc("/health", handler)
 		port := os.Getenv("PORT")
