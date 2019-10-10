@@ -101,9 +101,9 @@ var (
 
 func init() {
 	flag.StringVar(&url, "dingtalkurl", "", "dingtalk url.")
-	flag.StringVar(&url, "adcode", "", "adcode.")
-	flag.StringVar(&url, "date", "", "date.")
-	flag.StringVar(&url, "dayweather", "", "dayweather.")
+	flag.StringVar(&adcode, "adcode", "", "adcode.")
+	flag.StringVar(&date, "date", "", "date.")
+	flag.StringVar(&dayweather, "dayweather", "", "dayweather.")
 }
 func main() {
 	flag.Parse()
