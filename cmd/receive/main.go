@@ -12,7 +12,7 @@ import (
 	"github.com/knative-sample/dingtalk-weather-service/pkg/dingding"
 	"github.com/knative-sample/dingtalk-weather-service/pkg/kncloudevents"
 	"encoding/json"
-	"golang.org/x/tools/go/ssa/interp/testdata/src/strings"
+	"strings"
 )
 
 /*
