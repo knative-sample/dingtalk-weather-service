@@ -12,6 +12,7 @@ import (
 	"github.com/knative-sample/dingtalk-weather-service/pkg/dingding"
 	"github.com/knative-sample/dingtalk-weather-service/pkg/kncloudevents"
 	"encoding/json"
+	"golang.org/x/tools/go/ssa/interp/testdata/src/strings"
 )
 
 /*
@@ -79,11 +80,9 @@ func dispatch(ctx context.Context, event cloudevents.Event) {
 		}
 	}
 	json.Unmarshal(data, payload)
-	if payload.Daytemp == daytemp{
+	if payload.Adcode == adcode && payload.Date == date && strings.Contains(payload.Dayweather, dayweather){
 		dingding.SendDingDingReqest(url, http.MethodPost, dingding.BuildTextContext("City: " + payload.City + " >> Weather: " + string(data)))
 	}
-
-
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -91,11 +90,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 var (
 	url string
-	daytemp string
+	adcode string
+	date string
+	dayweather string
 )
 func init() {
 	flag.StringVar(&url, "dingtalkurl", "", "dingtalk url.")
-	flag.StringVar(&url, "daytemp", "", "daytemp.")
+	flag.StringVar(&url, "adcode", "", "adcode.")
+	flag.StringVar(&url, "date", "", "date.")
+	flag.StringVar(&url, "dayweather", "", "dayweather.")
 }
 func main() {
 	flag.Parse()
